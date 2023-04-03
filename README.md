@@ -46,7 +46,9 @@ Além disso, a aplicação está conectada com um banco de dados, deixando as co
 - O que é Deploy;
 - Ambientes de execução;
 - Boa práticas de Deploy: Dados sensíveis e Variáveis Ambientes;
-- Gerenciador de processos PM2.
+- Gerenciador de processos PM2;
+- Desenvolver Testes com Jest.js;
+- O que é e como aplicar o princípio da Inversão de Dependência.
 
 ## 🛠 Tecnologias usadas
 
