@@ -7,11 +7,28 @@ class UserRepository {
     return user
   }
 
+  async findById(id) {
+    const user = await knex("users").where({ id }).first()
+
+    return user
+  }
+
   async createUser({ name, email, password }) {
     const user = await knex("users").insert({
       name,
       email,
       password,
+    })
+
+    return user
+  }
+
+  async updateUser({ name, email, password, id }) {
+    const user = await knex("users").where({ id }).first().update({
+      name: name,
+      email: email,
+      password: password,
+      updated_at: knex.fn.now(),
     })
 
     return user
