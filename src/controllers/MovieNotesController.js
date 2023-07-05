@@ -1,33 +1,20 @@
 const knex = require("../database/knex")
 const AppError = require("../utils/AppError")
 
+const MovieNotesRepository = require("../repositories/MovieNotesRepository")
+const MovieNotesCreateService = require("../services/MovieNotesCreateService")
+
 class MovieNotesController {
   async create(request, response) {
     const { title, description, rating, tags } = request.body
     const user_id = request.user.id
 
-    if (rating > 5 || rating < 0) {
-      throw new AppError("Rating precisa estar entre 1 e 5!")
-    }
+    const movieNotesRepository = new MovieNotesRepository()
+    const movieNotesCreateService = new MovieNotesCreateService(movieNotesRepository)
 
-    const note_id = await knex("movie_notes").insert({
-      title,
-      description,
-      rating,
-      user_id,
-    })
+    const movieNote = await movieNotesCreateService.execute({ title, description, rating, tags, user_id })
 
-    const tagsInsert = tags.map((name) => {
-      return {
-        user_id,
-        note_id: Number(note_id),
-        name,
-      }
-    })
-
-    await knex("movie_tags").insert(tagsInsert)
-
-    return response.status(201).json()
+    return response.status(201).json(movieNote)
   }
 
   async delete(request, response) {

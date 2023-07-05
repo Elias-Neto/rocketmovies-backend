@@ -15,7 +15,7 @@ class MovieNotesCreateService {
       description,
       rating,
       tags,
-      user_id
+      userID: user_id,
     })
 
     return movieNote

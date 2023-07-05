@@ -25,7 +25,7 @@ class MovieNotesRepository {
 
     await this.movieTagsRepository.insertTags(tags, noteID, userID)
 
-    return this.findById(noteID)
+    return this.findMovieNoteByID(noteID)
   }
 }
 
